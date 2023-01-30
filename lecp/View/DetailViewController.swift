@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 class DetailViewController: UIViewController {
 
@@ -17,20 +18,36 @@ class DetailViewController: UIViewController {
     @IBOutlet var releaseDateLabel: UILabel!
     @IBOutlet var overviewLabel: UILabel!
     
+    @IBOutlet var movieImageView: UIImageView!
+    @IBOutlet var navigationBar: UINavigationItem!
+    @IBOutlet var backItemButton: UIBarButtonItem!
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        navigationBar.title = "\(String(describing: movie.title!))"
+        
+        overviewLabel.text = movie.overview
+        titleLabel.text = movie.title!
+        popularityLabel.text = movie.popularity!.description
+        releaseDateLabel.text = movie.release_date!
+        
+        if(movie.adult!){
+            restrictionLabel.text = "+18"
+        }else{
+            restrictionLabel.text = "Familiar"
+        }
+        
+        movieImageView.isSkeletonable = true
+        let gradient = SkeletonGradient(baseColor: UIColor.greenSea)
+        movieImageView.showAnimatedGradientSkeleton(usingGradient: gradient)
+        
+        DispatchQueue.global().async {
+            self.movieImageView.loadFromUrl(url: URL(string: "https://image.tmdb.org/t/p/w500\(self.movie.poster_path ?? "")")!)
+        }
+    }
+    @IBAction func backAction(_ sender: Any) {
+        self.dismiss(animated: true)
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

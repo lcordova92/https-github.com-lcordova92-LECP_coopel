@@ -19,6 +19,8 @@ struct Movie: Codable{
         title = ""
         vote_average = 0.0
         overview = ""
+        adult = false
+        popularity = 0.0
     }
     
     let poster_path: String?
@@ -26,5 +28,6 @@ struct Movie: Codable{
     let title: String?
     let vote_average: Float?
     let overview: String?
-    
+    let adult: Bool?
+    let popularity: Float?
 }

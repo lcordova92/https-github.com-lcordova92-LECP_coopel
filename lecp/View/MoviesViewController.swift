@@ -73,13 +73,13 @@ class MoviesViewController: UIViewController, MoviesPresenterDelegate {
         self.present(alert, animated: true, completion: nil)
     }
     
-    /*override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "goToDetail"){
             let vc = segue.destination as! DetailViewController
             vc.movie = movies[rowToDetail]
             
         }
-    }*/
+    }
     
     func getTopMostViewController() -> UIViewController? {
         var topMostViewController = UIApplication.shared.windows[0].rootViewController
@@ -110,7 +110,7 @@ extension MoviesViewController: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         rowToDetail = indexPath.row
-       // performSegue(withIdentifier: "goToDetail", sender: nil)
+        performSegue(withIdentifier: "goToDetail", sender: nil)
     }
 }
 
